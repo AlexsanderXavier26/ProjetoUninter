@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+// Alexsander Xavier - 4338139
+const API_BACKEND = process.env.API_BACKEND || 'http://localhost:3000'
+
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   resolve: {
@@ -24,7 +27,7 @@ export default defineConfig({
     // Proxy para API do backend - Alexsander Xavier - 4338139
     proxy: {
       '/api': {
-        target: 'http://localhost:9999',
+        target: API_BACKEND,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

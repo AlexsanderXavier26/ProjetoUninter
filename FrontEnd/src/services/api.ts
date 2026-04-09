@@ -1,17 +1,19 @@
 /// <reference types="vite/client" />
 // Cliente Axios com interceptadores - Chamadas HTTP para Backend
+// Alexsander Xavier - 4338139
 
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { API_URL } from '../config/api'
 
 /**
  * Configuração da API:
- * - Base URL: backend NestJS via proxy /api ou variável VITE_API_URL
+ * - Base URL: backend NestJS (URL centralizada em config/api.ts)
  * - Headers padrão: Content-Type: application/json
  * - Interceptadores para Token JWT e tratamento de erros 401
  * 
  * Alexsander Xavier - 4338139
  */
-const API_BASE_URL = (import.meta.env.VITE_API_URL as string | undefined) || '/api'
+const API_BASE_URL = API_URL
 
 class ApiClient {
   private client: AxiosInstance
