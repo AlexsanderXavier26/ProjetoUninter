@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Raízes do Nordeste
 
 Projeto desenvolvido para simular um sistema de franquias com múltiplos canais de atendimento, incluindo aplicativo para clientes, totem de autoatendimento e painéis internos para gestão.
@@ -99,3 +100,7 @@ Painel gerencial:
 ## Autor
 
 Alexsander Xavier - 4338139
+=======
+# ProjetoUninter
+Projeto final - Engenharia de Software 
+>>>>>>> 290d8cd60dcae19b0bc45493af012c1d6c4d53ff
