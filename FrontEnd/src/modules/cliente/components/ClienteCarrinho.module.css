@@ -1,0 +1,259 @@
+.container {
+  background: linear-gradient(135deg, #fff8f5 0%, #fff3e0 100%);
+  border: 2px solid #ff9a3d;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 6px 16px rgba(255, 122, 0, 0.2);
+}
+
+.container h3 {
+  margin: 0 0 1.5rem 0;
+  color: #2c3e50;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.emptyMessage {
+  text-align: center;
+  color: #999;
+  padding: 2rem 1rem;
+  font-size: 0.95rem;
+}
+
+.cartList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.cartList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cartList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.cartList::-webkit-scrollbar-thumb {
+  background: #ff9a3d;
+  border-radius: 10px;
+}
+
+.cartList::-webkit-scrollbar-thumb:hover {
+  background: #ff7a00;
+}
+
+.cartItemCard {
+  display: grid;
+  grid-template-columns: 50px 1fr 80px 70px 40px;
+  gap: 0.75rem;
+  align-items: center;
+  background: white;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #f0e0cc;
+  transition: all 0.2s;
+}
+
+.cartItemCard:hover {
+  border-color: #ff7a00;
+  box-shadow: 0 2px 8px rgba(255, 122, 0, 0.15);
+}
+
+.itemImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.itemDetails {
+  text-align: left;
+}
+
+.itemDetails h4 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.itemPrice {
+  margin: 0.3rem 0 0 0;
+  color: #ff7a00;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.itemControls {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #f9f9f9;
+  border-radius: 6px;
+  padding: 0.25rem;
+  border: 1px solid #eee;
+}
+
+.qtyBtn {
+  background: transparent;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #ff7a00;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+
+.qtyBtn:hover {
+  color: #e67e00;
+}
+
+.qty {
+  min-width: 28px;
+  text-align: center;
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.subtotal {
+  text-align: right;
+  font-weight: 700;
+  color: #ff7a00;
+  font-size: 0.9rem;
+  min-width: 70px;
+}
+
+.removeBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.3rem;
+  transition: transform 0.2s;
+  min-width: 40px;
+}
+
+.removeBtn:hover {
+  transform: scale(1.3);
+}
+
+.cartFooter {
+  border-top: 2px solid #f0e0cc;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.totalInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.totalInfo span {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.totalAmount {
+  font-size: 1.5rem;
+  color: #ff7a00;
+  font-weight: 700;
+}
+
+.finalizeBtn {
+  padding: 0.8rem 1.2rem;
+  background: linear-gradient(135deg, #ff7a00 0%, #e67e00 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(255, 122, 0, 0.25);
+  white-space: nowrap;
+}
+
+.finalizeBtn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(255, 122, 0, 0.35);
+}
+
+.finalizeBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.table {
+  display: none;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eaeaea;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+input[type=number] {
+  width: 60px;
+  padding: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.total {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .cartItemCard {
+    grid-template-columns: 45px 1fr auto;
+    gap: 0.5rem;
+  }
+
+  .itemControls {
+    order: 3;
+    grid-column: 2 / 4;
+  }
+
+  .subtotal {
+    order: 4;
+    grid-column: 2;
+  }
+
+  .removeBtn {
+    order: 5;
+    grid-column: 3;
+  }
+
+  .cartFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .finalizeBtn {
+    width: 100%;
+  }
+}

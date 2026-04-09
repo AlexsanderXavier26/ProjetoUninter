@@ -1,0 +1,225 @@
+// Alexsander Xavier - 4338139
+// Prisma schema para o projeto Raízes do Nordeste
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Enums converted to string fields for SQLite compatibility
+// enum Perfil {
+//   CLIENTE
+//   FUNCIONARIO
+//   GERENTE_REGIONAL
+//   ADMIN
+// }
+
+// enum StatusPedido {
+//   CRIADO
+//   AGUARDANDO_PAGAMENTO
+//   PAGO
+//   CANCELADO
+//   FINALIZADO
+// }
+
+model Regiao {
+  id         String    @id @default(uuid())
+  nome       String
+  ativo      Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  unidades   Unidade[]
+  gerentes   Usuario[]
+  itemPedidos ItemPedido[]
+}
+
+model Unidade {
+  id         String    @id @default(uuid())
+  nome       String
+  ativo      Boolean   @default(true)
+  regiaoId   String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  regiao     Regiao    @relation(fields: [regiaoId], references: [id])
+  usuarios   Usuario[]
+  produtos   ProdutoDisponibilidade[]
+  pedidos    Pedido[]
+  estoque    Estoque[]
+}
+
+model Usuario {
+  id            String    @id @default(uuid())
+  nome          String
+  email         String    @unique
+  senha         String
+  perfil        String
+  unidadeId     String?
+  regiaoId      String?
+  codigo        String?   // código administrativo para contas de administrador
+  consentimento Boolean   @default(false)
+  dataConsentimento DateTime?
+  ativo         Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  unidade       Unidade?  @relation(fields: [unidadeId], references: [id])
+  regiao        Regiao?   @relation(fields: [regiaoId], references: [id])
+  pedidos       Pedido[]
+  pontos        Fidelidade?
+  auditorias    Auditoria[]
+}
+
+model Produto {
+  id              String    @id @default(uuid())
+  nome            String
+  descricao       String?
+  preco           Float
+  sazonalidadeIni DateTime?
+  sazonalidadeFim DateTime?
+  produtoSazonal  Boolean   @default(false)
+  dataInicioDisponibilidade DateTime?
+  dataFimDisponibilidade    DateTime?
+  ativo           Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  disponibilidades ProdutoDisponibilidade[]
+  itensPedido     ItemPedido[]
+  estoques        Estoque[]
+}
+
+model ProdutoDisponibilidade {
+  id         String   @id @default(uuid())
+  produtoId  String
+  unidadeId  String
+  disponivel Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  produto    Produto  @relation(fields: [produtoId], references: [id])
+  unidade    Unidade  @relation(fields: [unidadeId], references: [id])
+
+  @@unique([produtoId, unidadeId])
+}
+
+model Pedido {
+  id            String        @id @default(uuid())
+  usuarioId     String?       // permite pedidos anônimos/totem
+  unidadeId     String
+  status        String  @default("CRIADO")
+  valorTotal    Float         @default(0)
+  ativo         Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  usuario       Usuario?      @relation(fields: [usuarioId], references: [id])
+  unidade       Unidade       @relation(fields: [unidadeId], references: [id])
+
+  itens         ItemPedido[]
+  pagamento     Pagamento?
+  historico     HistoricoPedido[]
+  cancelamento  Cancelamento?
+
+  @@index([status])
+  @@index([unidadeId])
+  @@index([usuarioId])
+  @@index([createdAt])
+}
+
+model ItemPedido {
+  id         String    @id @default(uuid())
+  nome       String
+  preco      Float
+  quantidade Int
+
+  regiaoId   String
+  pedidoId   String
+  produtoId  String
+
+  regiao     Regiao    @relation(fields: [regiaoId], references: [id])
+  pedido     Pedido    @relation(fields: [pedidoId], references: [id])
+  produto    Produto   @relation(fields: [produtoId], references: [id])
+
+  @@index([regiaoId])
+}
+
+model Pagamento {
+  id            String   @id @default(uuid())
+  pedidoId      String   @unique
+  valor         Float
+  status        String
+  gatewayId     String?
+  dataPagamento DateTime?
+
+  pedido        Pedido   @relation(fields: [pedidoId], references: [id])
+}
+
+model Fidelidade {
+  id         String      @id @default(uuid())
+  usuarioId  String      @unique
+  pontos     Int         @default(0)
+
+  usuario    Usuario     @relation(fields: [usuarioId], references: [id])
+  historico  HistoricoFidelidade[]
+}
+
+model HistoricoFidelidade {
+  id           String     @id @default(uuid())
+  fidelidadeId String
+  pontos       Int
+  motivo       String
+  data         DateTime   @default(now())
+
+  fidelidade   Fidelidade @relation(fields: [fidelidadeId], references: [id])
+}
+
+model Estoque {
+  id              String   @id @default(uuid())
+  unidadeId       String
+  produtoId       String
+  quantidade      Int      @default(0)
+  quantidadeMinima Int     @default(0)
+  reservado       Int      @default(0)
+  ativo           Boolean  @default(true)
+
+  unidade         Unidade  @relation(fields: [unidadeId], references: [id])
+  produto         Produto  @relation(fields: [produtoId], references: [id])
+
+  @@unique([unidadeId, produtoId])
+}
+
+model HistoricoPedido {
+  id       String        @id @default(uuid())
+  pedidoId String
+  status   String
+  data     DateTime      @default(now())
+
+  pedido   Pedido        @relation(fields: [pedidoId], references: [id])
+}
+
+model Cancelamento {
+  id       String   @id @default(uuid())
+  pedidoId String   @unique
+  motivo   String
+  data     DateTime @default(now())
+
+  pedido   Pedido   @relation(fields: [pedidoId], references: [id])
+}
+
+model Auditoria {
+  id         String   @id @default(uuid())
+  usuarioId  String?
+  acao       String
+  entidade   String
+  entidadeId String?
+  detalhes   String?
+  data       DateTime @default(now())
+
+  usuario    Usuario? @relation(fields: [usuarioId], references: [id])
+}

@@ -1,0 +1,403 @@
+/* Alexsander Xavier - 4338139 */
+/* Estilos para Gerenciamento de Estoque */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.container h1 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+/* Seletor de Unidade */
+.selector {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selector label {
+  font-weight: 600;
+  color: #2c3e50;
+  min-width: 150px;
+}
+
+.selector select {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.selector select:hover {
+  border-color: #3498db;
+}
+
+.selector select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.selector select:disabled {
+  background-color: #ecf0f1;
+  cursor: not-allowed;
+}
+
+/* Loader */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  gap: 1rem;
+}
+
+.loader p {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+}
+
+/* Empty State */
+.empty {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  color: #7f8c8d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Tabela */
+.tableWrapper {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.table thead th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #663399;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #ecf0f1;
+  transition: background-color 0.3s;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Linhas especiais - Estoque */
+.table tbody tr.indisponivel {
+  background-color: #ffe6e6;
+}
+
+.table tbody tr.indisponivel:hover {
+  background-color: #ffd9d9;
+}
+
+.table tbody tr.baixoEstoque {
+  background-color: #fff4e6;
+}
+
+.table tbody tr.baixoEstoque:hover {
+  background-color: #ffe8cc;
+}
+
+.table tbody td {
+  padding: 1rem;
+  color: #2c3e50;
+}
+
+/* Nome do Produto */
+.nameCell {
+  font-weight: 500;
+}
+
+.desc {
+  display: block;
+  font-size: 0.75rem;
+  color: #95a5a6;
+  margin-top: 0.25rem;
+}
+
+/* Colunas especiais */
+.colQty,
+.colMin,
+.colStatus,
+.colActions {
+  text-align: center;
+}
+
+.colQty {
+  min-width: 100px;
+}
+
+.colMin {
+  min-width: 80px;
+}
+
+.colStatus {
+  min-width: 130px;
+}
+
+.colActions {
+  min-width: 140px;
+}
+
+/* Cores de texto */
+.textDanger {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.textWarning {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.textSuccess {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+/* Badges */
+.badgeDanger {
+  background-color: #e74c3c;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badgeWarning {
+  background-color: #f39c12;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badgeSuccess {
+  background-color: #27ae60;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Input de Edição */
+.input {
+  width: 80px;
+  padding: 0.5rem;
+  border: 2px solid #3498db;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Botões */
+.btnEdit,
+.btnSave,
+.btnCancel {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.btnEdit {
+  background-color: #3498db;
+  color: white;
+}
+
+.btnEdit:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+}
+
+.btnEdit:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.btnSave {
+  background-color: #27ae60;
+  color: white;
+}
+
+.btnSave:hover {
+  background-color: #229954;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(39, 174, 96, 0.3);
+}
+
+.btnSave:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.btnCancel {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btnCancel:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
+}
+
+.btnCancel:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* Grupo de botões */
+.actionButtons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Resumo */
+.summary {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 6px;
+  border-left: 4px solid #667eea;
+}
+
+.summaryItem span {
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.summaryItem strong {
+  font-size: 1.5rem;
+  color: #667eea;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .container h1 {
+    font-size: 1.5rem;
+  }
+
+  .selector {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .selector label {
+    min-width: auto;
+  }
+
+  .selector select {
+    width: 100%;
+  }
+
+  .table {
+    font-size: 0.75rem;
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .colQty,
+  .colMin,
+  .colStatus,
+  .colActions {
+    min-width: auto;
+  }
+
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .btnEdit,
+  .btnSave,
+  .btnCancel {
+    width: 100%;
+  }
+}

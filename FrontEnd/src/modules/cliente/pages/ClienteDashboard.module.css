@@ -1,0 +1,251 @@
+.container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  min-height: 100vh;
+}
+
+.header {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.selector label {
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.selector select {
+  padding: 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.selector select:hover,
+.selector select:focus {
+  border-color: #ff7a00;
+  outline: none;
+}
+
+.filters {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.filters select {
+  padding: 0.6rem 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.filters select:hover,
+.filters select:focus {
+  border-color: #ff7a00;
+  outline: none;
+}
+
+.loading {
+  color: #ff7a00;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.loyalty {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  border: 2px solid #ff9a3d;
+  color: #e67e00;
+  font-weight: 700;
+  text-align: center;
+  min-width: 200px;
+}
+
+.announce {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.announce h2 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.4rem;
+}
+
+.announce span {
+  color: #999;
+  font-size: 0.95rem;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.cardCombo {
+  border: 2px solid #ff7a00;
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+}
+
+.thumbnail {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.cardBody {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cardBody h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.description {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.8rem;
+  flex-grow: 1;
+  line-height: 1.4;
+}
+
+.origin {
+  font-size: 0.8rem;
+  color: #999;
+  margin-bottom: 0.8rem;
+}
+
+.price {
+  font-weight: 700;
+  color: #ff7a00;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.addBtn {
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #ff7a00 0%, #e67e00 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(255, 122, 0, 0.2);
+}
+
+.addBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(255, 122, 0, 0.3);
+}
+
+.cartWrapper {
+  position: sticky;
+  top: auto;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .selector,
+  .loyalty {
+    min-width: 100%;
+  }
+
+  .filters {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .cartWrapper {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
