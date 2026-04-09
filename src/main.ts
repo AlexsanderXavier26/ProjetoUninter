@@ -8,28 +8,11 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // CORS Configuration - Permitir comunicação com Frontend Vite (portas 5173-5179 para flexibilidade)
-  app.enableCors({
-    origin: process.env.CORS_ORIGIN || [
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'http://localhost:5175',
-      'http://localhost:5176',
-      'http://localhost:5177',
-      'http://localhost:5178',
-      'http://localhost:5179',
-      'http://127.0.0.1:5173',
-      'http://127.0.0.1:5174',
-      'http://127.0.0.1:5175',
-      'http://127.0.0.1:5176',
-      'http://127.0.0.1:5177',
-      'http://127.0.0.1:5178',
-      'http://127.0.0.1:5179',
-    ],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  });
+  // Porta dinâmica para ambientes cloud
+  const port = process.env.PORT || 3000;
+
+  // CORS Configuration - Permitir comunicação global para deploy cloud
+  app.enableCors({ origin: '*' });
 
   // Validation Pipe para validar DTOs
   app.useGlobalPipes(
@@ -45,6 +28,8 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalInterceptors(new LoggingInterceptor());
-  await app.listen(process.env.PORT ?? 9999);
+  
+  await app.listen(port);
+  console.log(`Servidor rodando na porta ${port}`);
 }
 bootstrap();
